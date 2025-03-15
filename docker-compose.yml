@@ -1,0 +1,46 @@
+services:
+    db:
+      image: postgres:16-alpine
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=store_development
+      ports:
+        - '5433:5432'
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+    redis:
+        image: redis:7.0.15-alpine
+        ports:
+        - '6380:6379'
+        volumes:
+        - redis_data:/data
+    web:
+      build: .
+      command: bundle exec rails s -p 3000 -b '0.0.0.0'
+      volumes:
+        - .:/rails
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+        - redis
+      environment:
+        - DATABASE_URL=postgres://postgres:password@db:5432
+        - REDIS_URL=redis://redis:6379/0
+        - RAILS_ENV=development
+    test:
+        build: .
+        command: bash -c "bundle exec rails db:prepare && bundle exec rspec"
+        volumes:
+            - .:/rails
+        depends_on:
+            - db
+            - redis
+        environment:
+            - DATABASE_URL=postgres://postgres:password@db:5432
+            - REDIS_URL=redis://redis:6379/0
+            - RAILS_ENV=test
+volumes:
+    postgres_data:
+    redis_data:
