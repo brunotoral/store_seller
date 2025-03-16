@@ -2,6 +2,7 @@
 
 FactoryBot.define do
    factory :cart, aliases: [:shopping_cart] do
-     total_price { Faker::Number.decimal }
+     total_price { 0 }
+     last_interaction_at { Time.current }
    end
 end
