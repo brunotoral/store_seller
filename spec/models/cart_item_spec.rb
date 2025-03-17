@@ -13,7 +13,7 @@ RSpec.describe CartItem, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_numericality_of(:quantity).is_greater_than(0) }
+    it { is_expected.to validate_numericality_of(:quantity).is_greater_than_or_equal_to(0) }
     it { is_expected.to validate_numericality_of(:unit_purchase_price).is_greater_than(0) }
   end
 

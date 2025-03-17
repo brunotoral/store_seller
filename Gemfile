@@ -21,6 +21,10 @@ group :development, :test do
   gem 'timecop'
 end
 
+group :test do
+  gem 'rack_session_access'
+end
+
 group :development do
   gem 'guard'
   gem 'guard-rspec'
