@@ -26,12 +26,12 @@ RSpec.describe "/carts", type: :request do
         get cart_path
       end
 
-      it 'returns a new cart' do
-        expect(parsed_body_response).not_to match(id: cart.id)
+      it 'returns not_found error' do
+        expect(parsed_body_response).to match({ message: 'Cart not found.' }.as_json)
       end
 
-      it 'sets the corret sesion cart_id' do
-        expect(session[:cart_id]).not_to eq cart.id
+      it 'does not sets the sesion cart_id' do
+        expect(session[:cart_id]).to be_nil
       end
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe "/carts", type: :request do
       end
 
       it 'returns the cart' do
-        expect(response.body).to be_empty
+        expect(parsed_body_response).to match({ message: 'Your cart is empty.' }.as_json)
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe "/carts", type: :request do
       end
 
       it 'returns an error message' do
-        expect(parsed_body_response).to match({ error: 'The cart must exists' }.as_json)
+        expect(parsed_body_response).to match({ message: 'The cart must exists' }.as_json)
       end
 
       it 'sets the corret sesion cart_id' do
@@ -79,7 +79,7 @@ RSpec.describe "/carts", type: :request do
       end
 
       it 'returns the error message' do
-        expect(parsed_body_response).to match({error: "Product is not in the cart"}.as_json)
+        expect(parsed_body_response).to match({message: "Product is not in the cart"}.as_json)
       end
     end
 
@@ -182,7 +182,7 @@ RSpec.describe "/carts", type: :request do
       end
 
       it 'returns correct error message' do
-        expect(parsed_body_response).to match({ error: "Quantity must be a positive integer" }.as_json)
+        expect(parsed_body_response).to match({ message: "Quantity must be a positive integer" }.as_json)
       end
     end
 

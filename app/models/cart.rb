@@ -7,7 +7,7 @@ class Cart < ApplicationRecord
   validates :last_interaction_at, presence: true
   validates :total_price, numericality: { greater_than_or_equal_to: 0 }
 
-  enum status: { active: 0, abandoned: 1, finished: 2 }
+  enum status: { active: 0, abandoned: 1 }
 
   def mark_as_abandoned?
     active? && last_interaction_at < 3.hours.ago

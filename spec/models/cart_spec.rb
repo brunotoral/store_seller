@@ -31,7 +31,7 @@ RSpec.describe Cart, type: :model do
   end
 
   describe 'enums' do
-    it { is_expected.to define_enum_for(:status).with_values(%i[active abandoned finished]) }
+    it { is_expected.to define_enum_for(:status).with_values(%i[active abandoned]) }
   end
 
   describe '#abandoned?' do

@@ -1,8 +1,16 @@
 class ApplicationController < ActionController::API
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   before_action :set_current_cart
   before_action :create_cart, unless: :cart_found?
 
+
+
   private
+
+    def record_not_found
+      render json: { message: 'Record not found' }, status: :not_found
+    end
 
     def current_cart
       @current_cart

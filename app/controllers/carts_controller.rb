@@ -1,32 +1,36 @@
 class CartsController < ApplicationController
-  skip_before_action :create_cart, only: :remove_item
+  skip_before_action :create_cart, only: %i[remove_item show]
 
   def create
-    set_current_cart
-    render json: payload
+    render json: current_cart
   end
 
   def show
-    render json: payload
+    if current_cart
+      render json: current_cart
+    else
+      render json: { message: 'Cart not found.' }, status: :not_found
+    end
   end
 
   def add_item
-    case result = Carts::ProductAdder.new(current_cart, product, params[:quantity]).call
+    case service = Carts::ProductAdder.new(current_cart, product, params[:quantity]).call
     in { success?: true, result: Cart }
-      render json: payload
+      render json: service.result
     in { success?: false, error: String }
-      render json: { error: result.error }, status: :unprocessable_entity
+      render json: { message: service.error }, status: :unprocessable_entity
     end
   end
 
   def remove_item
-    case result = Carts::ProductRemover.new(current_cart, product).call
+    case service = Carts::ProductRemover.new(current_cart, product).call
     in { success?: true, result: Cart }
-      render json: payload
+      render json: service.result
     in { success?: true, result: {} }
        session[:cart_id] = nil
+       render json: { message: 'Your cart is empty.' }
     in { success?: false, error: String }
-      render json: { error: result.error }, status: :unprocessable_entity
+      render json: { message: service.error }, status: :unprocessable_entity
     end
   end
 
@@ -37,26 +41,6 @@ class CartsController < ApplicationController
   end
 
   def product
-    @product = Product.find_by id: params[:product_id]
-  end
-
-  def payload
-    {
-      id: current_cart.id,
-      products: products_payload,
-      total_price: current_cart.total_price
-    }
-  end
-
-  def products_payload
-    current_cart.cart_items.map do |p|
-      {
-        id: p.product_id,
-        name: p.product.name,
-        quantity: p.quantity,
-        unit_price: p.unit_purchase_price,
-        total_price: p.total_price,
-      }
-    end
+    @product = Product.find params[:product_id]
   end
 end

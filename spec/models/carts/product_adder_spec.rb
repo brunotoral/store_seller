@@ -39,7 +39,7 @@ RSpec.describe Carts::ProductAdder do
       end
 
       it 'updates cart total_price' do
-        expect { service.call }.to change { cart.total_price }.by(expected_change)
+        expect { service.call }.to change { cart.total_price.round(2) }.by(expected_change.round(2))
       end
 
       it 'updates cart last_interaction_at' do
@@ -61,7 +61,7 @@ RSpec.describe Carts::ProductAdder do
       end
 
       it 'updates cart total_price' do
-        expect { service.call }.to change { cart.total_price }.by(expected_change)
+        expect { service.call }.to change { cart.total_price.round(2) }.by(expected_change.round(2))
       end
 
       it 'updates cart_item quantity' do

@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_16_234126) do
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
+    t.decimal "price_at_purchase", precision: 17, scale: 2
     t.integer "quantity", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,11 +27,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_16_234126) do
   end
 
   create_table "carts", force: :cascade do |t|
+    t.decimal "total_price", precision: 17, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_interaction_at", default: -> { "CURRENT_TIMESTAMP" }
     t.integer "status", default: 0, null: false
-    t.decimal "total_price", precision: 17, scale: 2
   end
 
   create_table "products", force: :cascade do |t|

@@ -1,3 +1,62 @@
+
+# StoreSeller
+
+<p align="center">
+  <a href="https://www.ruby-lang.org/en/">
+    <img src="https://img.shields.io/badge/Ruby-v3.3.1-brightgreen.svg" alt="ruby version">
+  </a>
+  <a href="http://rubyonrails.org/">
+    <img src="https://img.shields.io/badge/Rails-v7.1.3-brightgreen.svg" alt="rails version">
+  </a>
+</p>
+
+
+*StoreSeller* is a Store cart.
+
+
+## Getting Started
+
+### Codebase
+
+*StoreSeller* is built on Ruby on Rails.
+
+
+# StoreSeller Installation Guide
+
+This guide will walk you through the steps to install and run StoreSeller using Docker Compose.
+
+## Prerequisites
+
+* [Docker](https://www.docker.com/get-started/) installed on your system.
+* [Docker Compose](https://docs.docker.com/compose/install/) installed on your system.
+
+## Installation Steps
+
+1.  **Clone the Repository:**
+
+    ```bash
+    git clone git@github.com:brunotoral/store_seller.git
+    cd store_seller
+    ```
+
+2.  **Build and Run the Containers:**
+
+    ```bash
+    docker-compose up --build
+    ```
+
+    This command will build the Docker images and start the containers defined in your `docker-compose.yml` file.
+
+
+## Stopping the Application
+
+To stop the application, use the following command:
+
+```bash
+docker-compose down
+
+
+
 # Desafio técnico e-commerce
 
 ## Nossas expectativas
@@ -90,7 +149,7 @@ Response:
 }
 ```
 
-### 3. Alterar a quantidade de produtos no carrinho 
+### 3. Alterar a quantidade de produtos no carrinho
 Um carrinho pode ter _N_ produtos, se o produto já existir no carrinho, apenas a quantidade dele deve ser alterada
 
 ROTA: `/cart/add_item`
@@ -111,24 +170,24 @@ Response:
       "id": 1230,
       "name": "Nome do produto X",
       "quantity": 2, // considerando que esse produto já estava no carrinho
-      "unit_price": 7.00, 
-      "total_price": 14.00, 
+      "unit_price": 7.00,
+      "total_price": 14.00,
     },
     {
       "id": 01020,
       "name": "Nome do produto Y",
       "quantity": 1,
-      "unit_price": 9.90, 
-      "total_price": 9.90, 
+      "unit_price": 9.90,
+      "total_price": 9.90,
     },
   ],
   "total_price": 23.9
 }
 ```
 
-### 3. Remover um produto do carrinho 
+### 3. Remover um produto do carrinho
 
-Criar um endpoint para excluir um produto do do carrinho. 
+Criar um endpoint para excluir um produto do do carrinho.
 
 ROTA: `/cart/:product_id`
 
@@ -161,7 +220,7 @@ Há trechos parcialmente implementados e também sugestões de locais para algum
 
 #### Testes
 Existem testes pendentes, eles estão marcados como <span style="color:green;">Pending</span>, e devem ser implementados para garantir a cobertura dos trechos de código implementados por você.
-Alguns testes já estão passando e outros estão com erro. Com a sua implementação os testes com erro devem passar a funcionar. 
+Alguns testes já estão passando e outros estão com erro. Com a sua implementação os testes com erro devem passar a funcionar.
 A adição de novos testes é sempre bem-vinda, mas sem alterar os já implementados.
 
 
@@ -177,9 +236,9 @@ A adição de novos testes é sempre bem-vinda, mas sem alterar os já implement
 
 A aplicação já possui um Dockerfile, que define como a aplicação deve ser configurada dentro de um contêiner Docker. No entanto, para completar a dockerização da aplicação, é necessário criar um arquivo `docker-compose.yml`. O arquivo irá definir como os vários serviços da aplicação (por exemplo, aplicação web, banco de dados, etc.) interagem e se comunicam.
 
-- Adicione tratamento de erros para situações excepcionais válidas, por exemplo: garantir que um produto não possa ter quantidade negativa. 
+- Adicione tratamento de erros para situações excepcionais válidas, por exemplo: garantir que um produto não possa ter quantidade negativa.
 
-- Se desejar você pode adicionar a configuração faltante no arquivo `docker-compose.yml` e garantir que a aplicação rode de forma correta utilizando Docker. 
+- Se desejar você pode adicionar a configuração faltante no arquivo `docker-compose.yml` e garantir que a aplicação rode de forma correta utilizando Docker.
 
 ## Informações técnicas
 
