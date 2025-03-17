@@ -54,6 +54,7 @@ To stop the application, use the following command:
 
 ```bash
 docker-compose down
+```
 
 
 
