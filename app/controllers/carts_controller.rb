@@ -36,10 +36,6 @@ class CartsController < ApplicationController
 
   private
 
-  def service_instance
-    Carts::Service.new(current_cart, product, params[:quantity])
-  end
-
   def product
     @product = Product.find params[:product_id]
   end
